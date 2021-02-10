@@ -2,13 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// Joueur (Player)
+//     • Doit avoir 5 points de vie.
+//     • Lorsqu’il se fait frapper par un monstre :
+//         ◦ Perdre 1 point de vie.
+//         ◦ Clignoter (Flash) pendant 2 secondes.
+//         ◦ Doit être invincible lorsqu’il clignote et ne pas se faire frapper.
+// Truc : utiliser plutôt OnTriggerStay2D(Collider2D collider)afin de pouvoir se faire frapper immédiatement lorsque l’invincibilité se termine.
+// 
 public class Player : MonoBehaviour
 {
     
     public GameObject Bullet;
     public Transform BulletSpawnPoint;
-    public float InvulnaribilityFrame = 0;
+    public float InvulnaribilityCounter = 0;
+    public float InvulnerabiltyFrame = 2;
     public Health hp;
 
     private void Start()
@@ -35,9 +43,9 @@ public class Player : MonoBehaviour
             
         }
 
-        if (InvulnaribilityFrame > 0)
+        if (InvulnaribilityCounter > 0)
         {
-            InvulnaribilityFrame -= Time.deltaTime;
+            InvulnaribilityCounter -= Time.deltaTime;
         }
 
         if (hp is null)
@@ -48,14 +56,16 @@ public class Player : MonoBehaviour
               
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Ennemy"))
         {
-            if (InvulnaribilityFrame == 0)
+            
+            
+            if (InvulnaribilityCounter == 0)
             {
                 hp.substractHealth();
-                InvulnaribilityFrame = 1;
+                InvulnaribilityCounter = InvulnerabiltyFrame;
             }
         }
         
