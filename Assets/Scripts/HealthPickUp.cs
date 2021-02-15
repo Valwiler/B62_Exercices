@@ -12,7 +12,15 @@ using UnityEngine;
 // 
 public class HealthPickUp : MonoBehaviour
 {
+
     // Start is called before the first frame update
+    void Awake()
+    {
+        gameObject.AddComponent<BoxCollider2D>();
+        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0;
+    }
     void Start()
     {
         
@@ -23,4 +31,15 @@ public class HealthPickUp : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name =="player")
+        { 
+            other.gameObject.GetComponentInParent<Player>().pickUp("health");
+            gameObject.SetActive(false);
+        }
+     
+    }
+
 }

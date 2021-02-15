@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
+
 // Baril explosif (Barrel)
 //     • Votre baril doit :
 //         ◦ Lorsqu’il est frappé par une balle et n’est pas déjà amorcé :
@@ -14,17 +16,55 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
+    public GameObject explosion;
+    public float aliveCounter = 2;
+    public Vector3 centre ;
     
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    public bool wasHitOnce = false;
     // Update is called once per frame
+    void Awake()
+    {
+        gameObject.AddComponent<BoxCollider2D>();
+        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0;
+    }
     void Update()
     {
-        
+        centre = gameObject.transform.position;
+        UpdateTimer();
+        if (aliveCounter <= 0)
+        {
+            var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+            Instantiate(explosion, centre, Rotation);
+        }
+
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Projectiles"))
+        if (wasHitOnce )
+        {
+             var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+             Instantiate(explosion, centre, Rotation);
+             Destroy(gameObject);
+         }
+         else
+             {
+                 wasHitOnce = true;
+                 //add flashing
+             }
+    }
+
+
+   
+
+    private void UpdateTimer()
+    {
+        if (wasHitOnce)
+        {
+            aliveCounter -= Time.deltaTime;
+        }
+    }
+    
 }

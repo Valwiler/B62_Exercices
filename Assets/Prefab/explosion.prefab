@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5710842417529357972}
   - component: {fileID: 5959484858523508243}
+  - component: {fileID: 8728325293176217429}
   m_Layer: 0
   m_Name: explosion
   m_TagString: Untagged
@@ -81,3 +82,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8728325293176217429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987512441825129775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9a7da576e9c00c2a8833844174db57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BalledeGunCriss: {fileID: 3559144648453816971, guid: 5413d03c9e301a3ecb5364c724a2f62b,
+    type: 3}
+  aliveCounter: 1
+  centre: {x: 0, y: 0, z: 0}

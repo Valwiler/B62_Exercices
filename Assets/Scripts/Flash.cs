@@ -111,5 +111,6 @@ public class Flash : MonoBehaviour
         enabled = false;
         DurationTimer = 0.0f;
         FlashState = State.Done;
+        UpdateAlpha();
     }
 }

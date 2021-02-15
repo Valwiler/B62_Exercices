@@ -12,16 +12,33 @@ using UnityEngine;
 // 
 public class Player : MonoBehaviour
 {
-    
+    /** Projectile objects and Inner variables  **/
     public GameObject Bullet;
+    public GameObject Bomb;
     public Transform BulletSpawnPoint;
+    private const int MAX_BOMB = 3;
+    public int current_bomb_Count = 0;
+    
+    
+    /** Collision, Health and inner variables **/    
     public float InvulnaribilityCounter = 0;
     public float InvulnerabiltyFrame = 2;
+    private const int MAX_HP = 5;
     public Health hp;
+    public Rigidbody2D body;
+    public Collider2D collison;
 
+    /** Move variables**/
+    public float moveHorizontal ;
+    public float moveVertical ;
+    public float runSpeed = 7.0f;
+   
     private void Start()
     {
         hp = GetComponent<Health>();
+        body = GetComponent<Rigidbody2D>();
+        collison = GetComponent<Collider2D>();
+
     }
 
     // Update is called once per frame
@@ -43,31 +60,52 @@ public class Player : MonoBehaviour
             
         }
 
-        if (InvulnaribilityCounter > 0)
+        if (Input.GetButtonDown("Fire3") && current_bomb_Count > 1) // Add Condition for bomb count
+        {
+            var bulletRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+            Instantiate(Bomb, BulletSpawnPoint.position, bulletRotation);
+        }
+
+        if (InvulnaribilityCounter >= 0)
         {
             InvulnaribilityCounter -= Time.deltaTime;
         }
 
-        if (hp is null)
+        if (hp.Hp <= 0)
         {
             Destroy(gameObject);
         }
+        
+        moveHorizontal = Input.GetAxisRaw("Horizontal");
+        moveVertical = Input.GetAxisRaw("Vertical");
+        //transform.position = player.transform.position(0,0, );
+        body.velocity = new Vector2(moveHorizontal * runSpeed, moveVertical * runSpeed);
 
               
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void pickUp(String s)
+    {
+        if (s == "bomb" && current_bomb_Count < MAX_BOMB)
+        {
+            current_bomb_Count += 1;
+        }
+        else if (s == "health" && hp.Hp < MAX_HP)
+        {
+            hp.addHealth();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Ennemy"))
         {
-            
-            
-            if (InvulnaribilityCounter == 0)
+
+            if (InvulnaribilityCounter <= 0)
             {
                 hp.substractHealth();
                 InvulnaribilityCounter = InvulnerabiltyFrame;
             }
         }
-        
     }
 }

@@ -6,10 +6,18 @@ public class Bullet : MonoBehaviour
 {
     public float DeleteTimer = 5;
     public GameObject Explosion;
+    
 
-    public float projectileSpeed = 8f;
+    public float projectileSpeed = 5f;
     
-    
+    void Awake()
+    {
+        gameObject.AddComponent<BoxCollider2D>();
+
+        //Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        //
+        //rb.bodyType = RigidbodyType2D.Dynamic;
+    }
     
     // Update is called once per frame
     void Update()
@@ -26,13 +34,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Ennemy"))
-        {
-            Vector3 impactPoint = transform.position;
-            var explosionRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
-            Instantiate(Explosion, impactPoint, explosionRotation );
-            Destroy(gameObject);
-        }
-        
+       if(!other.CompareTag("Player")) 
+       { Destroy(gameObject);}
     }
 }

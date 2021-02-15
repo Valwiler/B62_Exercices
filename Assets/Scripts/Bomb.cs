@@ -16,15 +16,39 @@ using UnityEngine;
 //             ▪ Tirer 8 balles
 public class Bomb : MonoBehaviour
 {
+    private const int MAX_NB_BOMBE = 3;
+    public GameObject explosion;
+    public float idleTimer = 1;
+    public float flashTimer = 1;
+    
+    public Flash FlashBehavior;
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
+        FlashBehavior = GetComponent<Flash>() ;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (idleTimer <= 0)
+        {
+            flashTimer -= Time.deltaTime;
+            var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+            //Instantiate(FlashBehavior, transform.position, Rotation);
+
+        }
+        else
+        {
+            idleTimer -= Time.deltaTime;
+        }
+        if (flashTimer <= 0)
+        {
+            var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+            Instantiate(explosion, transform.position, Rotation);
+            Destroy(gameObject);
+        }
+            
+
     }
 }
