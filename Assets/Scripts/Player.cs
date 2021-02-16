@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public Health hp;
     public Rigidbody2D body;
     public Collider2D collison;
+    public Flash flasher;
 
     /** Move variables**/
     public float moveHorizontal ;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
         hp = GetComponent<Health>();
         body = GetComponent<Rigidbody2D>();
         collison = GetComponent<Collider2D>();
+        flasher = GetComponent<Flash>();
 
     }
 
@@ -96,6 +98,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider2D other)
+    {
+
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Ennemy"))
@@ -103,6 +110,7 @@ public class Player : MonoBehaviour
 
             if (InvulnaribilityCounter <= 0)
             {
+                flasher.StartFlash();
                 hp.substractHealth();
                 InvulnaribilityCounter = InvulnerabiltyFrame;
             }

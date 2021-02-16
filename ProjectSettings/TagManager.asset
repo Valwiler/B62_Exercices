@@ -16,10 +16,10 @@ TagManager:
   - UI
   - 
   - 
-  - Enemy
+  - Walls
   - Player
   - Projectiles
-  - Walls
+  - Ennemy
   - Consummable
   - 
   - 

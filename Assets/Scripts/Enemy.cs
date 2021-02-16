@@ -19,9 +19,10 @@ public class Enemy : MonoBehaviour
     {
         
         gameObject.AddComponent<BoxCollider2D>();
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.gravityScale = 0;
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        //Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        //rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.gravityScale = 0;
     }
     
     // Update is called once per frame
@@ -42,7 +43,8 @@ public class Enemy : MonoBehaviour
         
         Vector2 direction = (Vector2)Player.transform.position - (Vector2)transform.position;
         direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;       
+        //transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
         transform.rotation = Quaternion.Euler(Vector3.forward * (angle ));
     }
 

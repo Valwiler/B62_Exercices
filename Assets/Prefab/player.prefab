@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8113023019578919482}
   - component: {fileID: 8113023019578919480}
   - component: {fileID: 8113023019578919481}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -102,14 +102,16 @@ MonoBehaviour:
   Bullet: {fileID: 3559144648453816971, guid: 5413d03c9e301a3ecb5364c724a2f62b, type: 3}
   Bomb: {fileID: 1281323320627377883, guid: b087dd5a0df772924b510f774c859b37, type: 3}
   BulletSpawnPoint: {fileID: 8113023021016098993}
+  current_bomb_Count: 0
   InvulnaribilityCounter: 0
   InvulnerabiltyFrame: 2
   hp: {fileID: 0}
+  body: {fileID: 0}
+  collison: {fileID: 0}
+  flasher: {fileID: 0}
   moveHorizontal: 0
   moveVertical: 0
   runSpeed: 7
-  body: {fileID: 0}
-  collison: {fileID: 0}
 --- !u!114 &8113023019578919478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +147,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6064813544036469029}
   - component: {fileID: 4939759731614434121}
-  m_Layer: 0
+  - component: {fileID: 1747170666158515220}
+  - component: {fileID: 2493238575013989809}
+  m_Layer: 11
   m_Name: spawner
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,3 +83,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1747170666158515220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008850313929591292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02fb412dc0cc40628ba93bba4530c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCounter: 5
+  spawnTimer: 5
+  hp: {fileID: 0}
+  ListSprite:
+  - {fileID: 7841461106900359166, guid: f0a168fedb8050e28951fc91cb0e6fa2, type: 3}
+  - {fileID: 2448505464973037642, guid: 3daace8b3bc27ef7c9db6a2131ee0155, type: 3}
+--- !u!114 &2493238575013989809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008850313929591292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afff7a7d5a7bb17269cf53a0fd69546a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 20

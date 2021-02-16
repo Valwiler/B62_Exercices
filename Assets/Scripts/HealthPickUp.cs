@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // Trousseau de vie (PickupBomb)
 //     • Un trousseau doit donner un point de vie.
 //     • Doit se détruire lorsque ramassé.
@@ -36,6 +37,7 @@ public class HealthPickUp : MonoBehaviour
     {
         if (other.gameObject.name =="player")
         { 
+          
             other.gameObject.GetComponentInParent<Player>().pickUp("health");
             gameObject.SetActive(false);
         }

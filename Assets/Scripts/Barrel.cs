@@ -19,6 +19,7 @@ public class Barrel : MonoBehaviour
     public GameObject explosion;
     public float aliveCounter = 2;
     public Vector3 centre ;
+    public Flash flasher;
     
     public bool wasHitOnce = false;
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class Barrel : MonoBehaviour
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0;
+        flasher = GetComponent<Flash>();
     }
     void Update()
     {
@@ -52,7 +54,7 @@ public class Barrel : MonoBehaviour
          else
              {
                  wasHitOnce = true;
-                 //add flashing
+                 flasher.StartFlash();
              }
     }
 
