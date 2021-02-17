@@ -24,11 +24,18 @@ public class Player : MonoBehaviour
     public float InvulnaribilityCounter = 0;
     public float InvulnerabiltyFrame = 2;
     private const int MAX_HP = 5;
+    public int Score = 0;
     public Health hp;
     public Rigidbody2D body;
     public Collider2D collison;
     public Flash flasher;
 
+    /** Sound clips **/
+    public AudioSource Source;
+    public AudioClip ouch;
+    public AudioClip pistol;
+    public AudioClip Shotgun;
+    
     /** Move variables**/
     public float moveHorizontal ;
     public float moveVertical ;
@@ -50,22 +57,26 @@ public class Player : MonoBehaviour
         {
             var bulletRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
             Instantiate(Bullet, BulletSpawnPoint.position, bulletRotation);
+            Source.PlayOneShot(pistol,0.5f);
         }
         if (Input.GetButtonDown("Fire2"))
         {
             var bulletRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
             Instantiate(Bullet, BulletSpawnPoint.position, bulletRotation);
+            Source.PlayOneShot(Shotgun,0.5f);
             bulletRotation = transform.rotation * Quaternion.Euler(0, 0, -30);
             Instantiate(Bullet, BulletSpawnPoint.position, bulletRotation);
+            Source.PlayOneShot(Shotgun,0.5f);
             bulletRotation = transform.rotation * Quaternion.Euler(0, 0, 30);
             Instantiate(Bullet, BulletSpawnPoint.position, bulletRotation);
-            
+            Source.PlayOneShot(Shotgun,0.5f);
         }
 
-        if (Input.GetButtonDown("Fire3") && current_bomb_Count > 1) // Add Condition for bomb count
+        if (Input.GetButtonDown("Fire3") && current_bomb_Count > 0) // Add Condition for bomb count
         {
             var bulletRotation = transform.rotation * Quaternion.Euler(0, 0, 0);
             Instantiate(Bomb, BulletSpawnPoint.position, bulletRotation);
+            current_bomb_Count -= 1;
         }
 
         if (InvulnaribilityCounter >= 0)
@@ -86,6 +97,10 @@ public class Player : MonoBehaviour
               
     }
 
+    public void increaseScore(int i)
+    {
+        Score += i;
+    }
     public void pickUp(String s)
     {
         if (s == "bomb" && current_bomb_Count < MAX_BOMB)
@@ -97,22 +112,22 @@ public class Player : MonoBehaviour
             hp.addHealth();
         }
     }
-
-    private void OnTriggerEnter(Collider2D other)
-    {
-
-    }
+    
 
     private void OnTriggerStay2D(Collider2D other)
     {
+
+       
         if (other.CompareTag("Ennemy"))
         {
-
+          
             if (InvulnaribilityCounter <= 0)
             {
                 flasher.StartFlash();
                 hp.substractHealth();
+                Source.PlayOneShot(ouch, 0.5f);
                 InvulnaribilityCounter = InvulnerabiltyFrame;
+                
             }
         }
     }

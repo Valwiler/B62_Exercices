@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,35 +14,41 @@ using UnityEngine;
 // 
 public class HealthPickUp : MonoBehaviour
 {
-
+    public bool isBeingDestroyed; 
     // Start is called before the first frame update
+
     void Awake()
     {
+        
         gameObject.AddComponent<BoxCollider2D>();
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.gravityScale = 0;
-    }
-    void Start()
-    {
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        if (isBeingDestroyed)
+        {
+            return;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.gameObject.name =="player")
-        { 
-          
-            other.gameObject.GetComponentInParent<Player>().pickUp("health");
-            gameObject.SetActive(false);
+        {
+            if (other.gameObject.GetComponentInParent<Player>().hp.Hp < 5)
+            {
+                other.gameObject.GetComponentInParent<Player>().pickUp("health");
+                Destroy(gameObject);
+            }
         }
      
     }
 
+    private void OnDestroy()
+    {
+        isBeingDestroyed = true;
+    }
 }

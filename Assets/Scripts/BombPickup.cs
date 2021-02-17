@@ -11,32 +11,30 @@ using UnityEngine;
 // 
 public class BombPickup : MonoBehaviour
 {
-
+    
+    
     void Awake()
     {
+       
         gameObject.AddComponent<BoxCollider2D>();
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.gravityScale = 0;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log( "Bomb pickup :" + gameObject.activeSelf );
-    }
+  
    
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log(gameObject.activeSelf);
+        Debug.Log(gameObject.activeInHierarchy);
+        
         if (other.gameObject.name =="player")
-        { 
-            other.gameObject.GetComponentInParent<Player>().pickUp("bomb");
-           gameObject.SetActive(false);
+        {
+            if (other.gameObject.GetComponentInParent<Player>().current_bomb_Count < 3)
+            {
+                other.gameObject.GetComponentInParent<Player>().pickUp("bomb");
+                Debug.Log("Nb Bombe : " + other.gameObject.GetComponentInParent<Player>());
+                Destroy(gameObject);
+            }
         }
         
     }

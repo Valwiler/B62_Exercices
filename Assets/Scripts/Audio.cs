@@ -27,9 +27,17 @@ using UnityEngine;
 //     • J’ai utilisé le site https://freemusicarchive.org/ pour trouver la musique sans droits d’auteur (junior85 – Left For Deadish).
 public class Audio : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private AudioSource source;
+    public float volume;
+    public AudioClip track;
+    
+    public void play()
+    {
+        source.PlayOneShot(track, volume);
+    }
     void Start()
     {
+        source = new AudioSource();
         
     }
 

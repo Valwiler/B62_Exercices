@@ -24,11 +24,15 @@ public class Spawner : MonoBehaviour
     public float spawnTimer = 5;
     public Health hp;
     public GameObject[] ListSprite  = new GameObject[2];
-    
+    public Player player;
+    public AudioSource source;
+    public AudioClip track;
+    public AudioClip track2;
     // Start is called before the first frame update
     void Start()
     {
         hp = GetComponent<Health>();
+        player = GameObject.Find("player").GetComponent<Player>();
     }
     void Awake()
     {
@@ -46,6 +50,7 @@ public class Spawner : MonoBehaviour
             int randomMonster = Random.Range(0, 1000)%2;
             var noRotation = Quaternion.Euler(0, 0, 0);
             Instantiate(ListSprite[randomMonster], transform.position, noRotation);
+            source.PlayOneShot(track, 0.5f);
             spawnTimer = spawnCounter;
         }
         else
@@ -55,13 +60,14 @@ public class Spawner : MonoBehaviour
 
         if (hp.Hp <= 0)
         {
+            player.increaseScore(500);
+            source.PlayOneShot(track2, 0.7f);
             Destroy(gameObject);
         }
         
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Spawner hit detected");
         if (other.CompareTag("Projectiles"))
         {
             hp.substractHealth();

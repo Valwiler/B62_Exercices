@@ -30,10 +30,11 @@ public class Barrel : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0;
         flasher = GetComponent<Flash>();
+        centre = gameObject.transform.position;
     }
     void Update()
     {
-        centre = gameObject.transform.position;
+       
         UpdateTimer();
         if (aliveCounter <= 0)
         {
@@ -44,18 +45,20 @@ public class Barrel : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Projectiles"))
-        if (wasHitOnce )
+        if (other.CompareTag("Projectiles"))
         {
-             var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
-             Instantiate(explosion, centre, Rotation);
-             Destroy(gameObject);
-         }
-         else
-             {
-                 wasHitOnce = true;
-                 flasher.StartFlash();
-             }
+            if (wasHitOnce)
+            {
+                var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
+                Instantiate(explosion, centre, Rotation);
+                Destroy(gameObject);
+            }
+            else
+            {
+                wasHitOnce = true;
+                flasher.StartFlash();
+            }
+        }
     }
 
 

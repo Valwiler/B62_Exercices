@@ -24,8 +24,7 @@ public class Level : MonoBehaviour
     public BoxCollider2D LevelCollider;
     public List<LevelSpawnObject> LevelSpawnObjects;
     
-    public GameObject MonsterGameObjet;
-    public float MonsterTimer = 3;
+  
     void Start()
     {
         
@@ -36,16 +35,19 @@ public class Level : MonoBehaviour
     {
         foreach (var levelSpawnObject in LevelSpawnObjects)
         {
-            
-        }
-        MonsterTimer -= Time.deltaTime;
-        if (MonsterTimer <= 0)
-        {
-            var x = Random.Range(LevelCollider.bounds.min.x, LevelCollider.bounds.max.x);
-            var y = Random.Range(LevelCollider.bounds.min.y, LevelCollider.bounds.max.y);
+            if (levelSpawnObject.SpawnTime <= 0)
+            {
+                var x = Random.Range(LevelCollider.bounds.min.x, LevelCollider.bounds.max.x);
+                var y = Random.Range(LevelCollider.bounds.min.y, LevelCollider.bounds.max.y);
 
-            Instantiate(MonsterGameObjet, new Vector3(x,y, 0), Quaternion.identity);
-            MonsterTimer = 3;
+                Instantiate(levelSpawnObject.GameObject, new Vector3(x,y, 0), Quaternion.identity);
+                levelSpawnObject.SpawnTime = 3;
+            }
+            else
+            {
+                levelSpawnObject.SpawnTime -= Time.deltaTime;
+            }
         }
+      
     }
 }

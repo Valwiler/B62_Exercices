@@ -4,38 +4,42 @@ using UnityEngine;
 
 public class EmptypickUp : MonoBehaviour
 {
-    private const int respawnRate = 20;
+    private const int respawnRate = 3;
     private float respawnTimer = respawnRate;
     public GameObject consummable;
-    
+    private GameObject temp;
+    public bool isActivated = true;
+    private Quaternion noRotation;
 
     
     void Start()
     {
-        gameObject.SetActive(true);
-        var noRotation = Quaternion.Euler(0, 0, 0);
-        Instantiate(consummable, transform.position, noRotation);
-        respawnTimer = respawnRate;
+        temp = consummable;
+        noRotation = Quaternion.Euler(0, 0, 0);
+        Instantiate(temp, transform.position, noRotation);
+        
     }
 
     // Update is called once per frame
-    void Update()
-    {
-                   
-            
-         if (consummable.activeSelf == false)
-        {
-            if (respawnTimer <= 0)
-            {
-                consummable.SetActive(true);
-                respawnTimer = respawnRate;
-            }
-            else
-                respawnTimer -= Time.deltaTime;    
-        }
-
-        
-
-        
-    }
+    //void Update()
+    //{
+    //  //Debug.Log(temp.gameObject is null);
+    //    if (temp.onDestroy )
+    //    {
+    //        if (respawnTimer <= 0)
+    //        {
+    //            Debug.Log("Respawn Timer : " + respawnTimer);
+    //            temp = consummable;
+    //            Instantiate(temp, transform.position,noRotation);
+    //            respawnTimer = respawnRate;
+    //
+    //        }
+    //        else
+    //            respawnTimer -= Time.deltaTime;
+    //    }
+    //
+    //
+    //
+    //
+    //}
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2445765105700100720}
   m_Layer: 0
   m_Name: pickupHealth
-  m_TagString: Untagged
+  m_TagString: Destructibles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,4 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893117d8a2baeaa2a8c02038827f4ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPickup: {fileID: 0}
+  isBeingDestroyed: 0

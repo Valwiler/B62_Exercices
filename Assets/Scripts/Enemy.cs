@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,33 +10,46 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
     public float Speed;
     public Vector3 scale;
+    public Player playerValues;
     void Start()
     {
         Player = GameObject.Find("player");
+        playerValues = Player.GetComponent<Player>();
         transform.localScale = scale;
         hp = GetComponent<Health>();
+        
     }
     void Awake()
     {
         
         gameObject.AddComponent<BoxCollider2D>();
-        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        //Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        //rb.bodyType = RigidbodyType2D.Kinematic;
-        //rb.gravityScale = 0;
+        ;
+        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 0;
     }
     
     // Update is called once per frame
     void Update()
     {
+       
         LookAtPlayer();
         transform.position = Vector3.MoveTowards(transform.position,
             Player.transform.position,
             Speed * Time.deltaTime);
         if ( hp.Hp <= 0 )
         {
+            if (Speed > 3)
+            {
+                playerValues.increaseScore( 25);
+            }
+            else
+            {
+                playerValues.increaseScore(100 );
+            }
             Destroy(gameObject);
         }
+        
     }
 
     void LookAtPlayer()
@@ -50,10 +64,16 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+      
         if (other.CompareTag("Projectiles"))
         {
             hp.substractHealth();
         }
      
+    }
+
+    private void Move()
+    {
+        
     }
 }
