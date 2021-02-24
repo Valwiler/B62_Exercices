@@ -1,22 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    public int Hp ;
+    // delegate signature de fonction
+    public delegate void HealthEvent(Health health);
 
-    //public Health(int Vie)
-    //{
-    //    this.Hp = Vie;
-    //}
+    // Listeners
+    public HealthEvent OnChanged;
+    public HealthEvent OnHit;
+    public HealthEvent OnDeath;
 
-    public void substractHealth()
+    public int Max;
+
+    private int _value;
+
+    public int Value
     {
-        this.Hp -= 1;
+        get { return _value; }
+        set
+        {
+            var previous = _value;
+
+            _value = Mathf.Clamp(value, 0, Max);
+
+            if (_value != previous)
+            {
+                OnChanged?.Invoke(this);
+
+                if (_value < previous)
+                    OnHit?.Invoke(this);
+
+                if (_value <= 0)
+                    OnDeath?.Invoke(this);
+            }
+        }
     }
-    public void addHealth()
+
+    private void Awake()
     {
-        this.Hp += 1;
+        Value = Max;
     }
 }

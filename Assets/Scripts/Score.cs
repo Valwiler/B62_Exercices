@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 // Score
 //     • Le score du joueur doit apparaître à l’écran.
 //     • Le joueur doit commencer avec 0 points.
@@ -13,16 +12,41 @@ using UnityEngine;
 // 
 public class Score : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
+    public delegate void ScoreEvent(Score score);
+
+    // Listeners
+    public ScoreEvent OnChanged;
+    public ScoreEvent OnHit;
+    public ScoreEvent OnDeath;
+
+    public int Min = 0;
+
+    private int _value;
+
+    public int Value
     {
-        
+        get { return _value; }
+        set
+        {
+            var previous = _value;
+
+           // _value = Mathf.Clamp(value, 0, Max);
+
+            if (_value != previous)
+            {
+                OnChanged?.Invoke(this);
+
+                if (_value < previous)
+                    OnHit?.Invoke(this);
+
+                if (_value <= 0)
+                    OnDeath?.Invoke(this);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        Value = Min;
     }
 }

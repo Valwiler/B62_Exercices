@@ -1,28 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Fade : MonoBehaviour
 {
-    enum State
-    {
-        FadeIn,
-        Wait,
-        FadeOut,
-        Done,
-    }
-
-    public float FadeInTime = 0;
-    public float FadeWaitTime = 0;
+    public float FadeInTime;
+    public float FadeWaitTime;
     public float FadeOutTime = 1;
-    public bool DestroyOnFadeOut = false;
+    public bool DestroyOnFadeOut;
+    private CanvasGroup[] _canvasGroups;
+
+    private Renderer[] _renderers;
 
     private State FadeState { get; set; }
     private float FadeTimer { get; set; }
-
-    private Renderer[] _renderers;
-    private CanvasGroup[] _canvasGroups;
 
     public float Alpha
     {
@@ -40,7 +29,7 @@ public class Fade : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         _renderers = gameObject.GetComponentsInChildren<Renderer>();
         _canvasGroups = gameObject.GetComponentsInChildren<CanvasGroup>();
@@ -48,7 +37,7 @@ public class Fade : MonoBehaviour
         StartFade();
     }
 
-    void Update()
+    private void Update()
     {
         if (FadeState == State.Done)
             return;
@@ -70,10 +59,7 @@ public class Fade : MonoBehaviour
             renderer.material.color = color.WithAlpha(alpha);
         }
 
-        foreach (var canvasGroup in _canvasGroups)
-        {
-            canvasGroup.alpha = alpha;
-        }
+        foreach (var canvasGroup in _canvasGroups) canvasGroup.alpha = alpha;
     }
 
     private void OnFadeDone()
@@ -81,27 +67,28 @@ public class Fade : MonoBehaviour
         switch (FadeState)
         {
             case State.FadeIn:
-                {
-                    FadeTimer = FadeWaitTime;
-                    FadeState = State.Wait;
-                }
+            {
+                FadeTimer = FadeWaitTime;
+                FadeState = State.Wait;
+            }
                 break;
             case State.Wait:
-                {
-                    FadeTimer = FadeOutTime;
-                    FadeState = State.FadeOut;
-                }
+            {
+                FadeTimer = FadeOutTime;
+                FadeState = State.FadeOut;
+            }
                 break;
             case State.FadeOut:
-                {
-                    if (DestroyOnFadeOut)
-                        Destroy(gameObject);
+            {
+                if (DestroyOnFadeOut)
+                    Destroy(gameObject);
 
-                    StopFade();
-                }
+                StopFade();
+            }
                 break;
         }
     }
+
     public void StartFade()
     {
         enabled = true;
@@ -123,5 +110,13 @@ public class Fade : MonoBehaviour
         enabled = false;
         FadeTimer = 0.0f;
         FadeState = State.Done;
+    }
+
+    private enum State
+    {
+        FadeIn,
+        Wait,
+        FadeOut,
+        Done
     }
 }

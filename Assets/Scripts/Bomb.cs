@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 // Bombe (Bomb)
 //     • Votre joueur doit commencer avec une bombe.
 //         ◦ Avoir jusqu’à 3 bombes maximum.
@@ -16,39 +15,41 @@ using UnityEngine;
 //             ▪ Tirer 8 balles
 public class Bomb : MonoBehaviour
 {
-    private const int MAX_NB_BOMBE = 3;
-    public GameObject explosion;
-    public float idleTimer = 1;
-    public float flashTimer = 1;
-    
-    public Flash FlashBehavior;
-    // Start is called before the first frame update
-    void Start()
-    { 
-        FlashBehavior = GetComponent<Flash>() ;
+    public delegate void BombEvent(Bomb Bomb);
+
+    // Listeners
+    public BombEvent OnChanged;
+
+
+    public int Initial ;
+    public int Max;
+
+    private int _value;
+
+    public int Value
+    {
+        get { return _value; }
+        set
+        {
+            var previous = _value;
+
+            _value = Mathf.Clamp(value, 0, Max);
+
+            if (_value != previous)
+            {
+                OnChanged?.Invoke(this);
+                
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        if (idleTimer <= 0)
-        {
-            flashTimer -= Time.deltaTime;
-            var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
-            //Instantiate(FlashBehavior, transform.position, Rotation);
-
-        }
-        else
-        {
-            idleTimer -= Time.deltaTime;
-        }
-        if (flashTimer <= 0)
-        {
-            var Rotation = transform.rotation * Quaternion.Euler(0, 0, 0);
-            Instantiate(explosion, transform.position, Rotation);
-            Destroy(gameObject);
-        }
-            
-
+        Value = Initial;
+    }
+    
+    public bool CanUse
+    {
+        get { return Value > 0; }
     }
 }

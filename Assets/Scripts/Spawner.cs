@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 //Vaisseau créateur de monstres (Spawner)
 //    • Votre vaisseau doit:
@@ -19,35 +15,36 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-
     public float spawnCounter = 5;
     public float spawnTimer = 5;
     public Health hp;
-    public GameObject[] ListSprite  = new GameObject[2];
+    public GameObject[] ListSprite = new GameObject[2];
     public Player player;
     public AudioSource source;
     public AudioClip track;
     public AudioClip track2;
-    // Start is called before the first frame update
-    void Start()
-    {
-        hp = GetComponent<Health>();
-        player = GameObject.Find("player").GetComponent<Player>();
-    }
-    void Awake()
+
+    private void Awake()
     {
         gameObject.AddComponent<BoxCollider2D>();
-        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        var rb = gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0;
     }
-    
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        hp = GetComponent<Health>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (spawnTimer <= 0)
         {
-            int randomMonster = Random.Range(0, 1000)%2;
+            var randomMonster = Random.Range(0, 1000) % 2;
             var noRotation = Quaternion.Euler(0, 0, 0);
             Instantiate(ListSprite[randomMonster], transform.position, noRotation);
             source.PlayOneShot(track, 0.5f);
@@ -58,21 +55,16 @@ public class Spawner : MonoBehaviour
             spawnTimer -= Time.deltaTime;
         }
 
-        if (hp.Hp <= 0)
+        if (hp.Value <= 0)
         {
-            player.increaseScore(500);
+            //player.increaseScore(500);
             source.PlayOneShot(track2, 0.7f);
             Destroy(gameObject);
         }
-        
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Projectiles"))
-        {
-            hp.substractHealth();
-        }
-     
+        //if (other.CompareTag("Projectiles")) hp.substractHealth();
     }
-    
 }

@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Flash : MonoBehaviour
 {
-    enum State
-    {
-        FlashOn,
-        FlashOff,
-        Done
-    }
-
     public float FlashOnTime = 0.1f;
     public float FlashOffTime = 0.1f;
     public float Duration = 1.0f;
+    private CanvasGroup[] _canvasGroups;
+
+    private Renderer[] _renderers;
 
     private State FlashState { get; set; }
     private float FlashStateTimer { get; set; }
     private float DurationTimer { get; set; }
-
-    private Renderer[] _renderers;
-    private CanvasGroup[] _canvasGroups;
 
     public float Alpha
     {
@@ -39,7 +29,7 @@ public class Flash : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         _renderers = gameObject.GetComponentsInChildren<Renderer>();
         _canvasGroups = gameObject.GetComponentsInChildren<CanvasGroup>();
@@ -47,7 +37,7 @@ public class Flash : MonoBehaviour
         StartFlash();
     }
 
-    void Update()
+    private void Update()
     {
         if (FlashState == State.Done)
             return;
@@ -73,10 +63,7 @@ public class Flash : MonoBehaviour
             renderer.material.color = color.WithAlpha(alpha);
         }
 
-        foreach (var canvasGroup in _canvasGroups)
-        {
-            canvasGroup.alpha = alpha;
-        }
+        foreach (var canvasGroup in _canvasGroups) canvasGroup.alpha = alpha;
     }
 
     private void OnFlashStateDone()
@@ -84,16 +71,16 @@ public class Flash : MonoBehaviour
         switch (FlashState)
         {
             case State.FlashOn:
-                {
-                    FlashStateTimer = FlashOffTime;
-                    FlashState = State.FlashOff;
-                }
+            {
+                FlashStateTimer = FlashOffTime;
+                FlashState = State.FlashOff;
+            }
                 break;
             case State.FlashOff:
-                {
-                    FlashStateTimer = FlashOnTime;
-                    FlashState = State.FlashOn;
-                }
+            {
+                FlashStateTimer = FlashOnTime;
+                FlashState = State.FlashOn;
+            }
                 break;
         }
     }
@@ -112,5 +99,12 @@ public class Flash : MonoBehaviour
         DurationTimer = 0.0f;
         FlashState = State.Done;
         UpdateAlpha();
+    }
+
+    private enum State
+    {
+        FlashOn,
+        FlashOff,
+        Done
     }
 }

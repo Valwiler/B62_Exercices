@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 // Trousseau de vie (PickupBomb)
@@ -14,41 +11,32 @@ using UnityEngine;
 // 
 public class HealthPickUp : MonoBehaviour
 {
-    public bool isBeingDestroyed; 
+    public bool isBeingDestroyed;
     // Start is called before the first frame update
 
-    void Awake()
+    private void Awake()
     {
-        
         gameObject.AddComponent<BoxCollider2D>();
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        
     }
 
     public void Update()
     {
-        if (isBeingDestroyed)
-        {
-            return;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        
-        if (other.gameObject.name =="player")
-        {
-            if (other.gameObject.GetComponentInParent<Player>().hp.Hp < 5)
-            {
-                other.gameObject.GetComponentInParent<Player>().pickUp("health");
-                Destroy(gameObject);
-            }
-        }
-     
+        if (isBeingDestroyed) return;
     }
 
     private void OnDestroy()
     {
         isBeingDestroyed = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "player")
+            if (other.gameObject.GetComponentInParent<Player>().Health.Value < 5)
+            {
+                //other.gameObject.GetComponentInParent<Player>().pickUp("health");
+                Destroy(gameObject);
+            }
     }
 }

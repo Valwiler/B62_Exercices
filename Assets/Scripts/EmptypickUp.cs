@@ -1,23 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EmptypickUp : MonoBehaviour
 {
     private const int respawnRate = 3;
-    private float respawnTimer = respawnRate;
     public GameObject consummable;
-    private GameObject temp;
     public bool isActivated = true;
     private Quaternion noRotation;
+    private float respawnTimer = respawnRate;
+    private GameObject temp;
 
-    
-    void Start()
+
+    private void Start()
     {
         temp = consummable;
         noRotation = Quaternion.Euler(0, 0, 0);
         Instantiate(temp, transform.position, noRotation);
-        
     }
 
     // Update is called once per frame

@@ -67,8 +67,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8875370318434914997}
   - component: {fileID: 1678840170832702605}
+  - component: {fileID: 8442666961687199818}
   - component: {fileID: 2488275479012663259}
-  - component: {fileID: 3794286035125307811}
   m_Layer: 9
   m_Name: monster
   m_TagString: Ennemy
@@ -141,6 +141,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8442666961687199818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841461106900359166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5c89be8385e567aab2903de218c758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 3
 --- !u!114 &2488275479012663259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,19 +168,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 0}
   Player: {fileID: 0}
-  HitBox: {fileID: 4255121002909003761}
   Speed: 2
   scale: {x: 1, y: 1, z: 1}
---- !u!114 &3794286035125307811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7841461106900359166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afff7a7d5a7bb17269cf53a0fd69546a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Hp: 5
+  playerValues: {fileID: 0}

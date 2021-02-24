@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-static public class Vector3Extensions
+public static class Vector3Extensions
 {
     public static Vector2 XY(this Vector3 v)
     {

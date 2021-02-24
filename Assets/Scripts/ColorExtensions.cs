@@ -7,5 +7,3 @@ public static class ColorExtensions
         return new Color(color.r, color.g, color.b, alpha);
     }
 }
-
-

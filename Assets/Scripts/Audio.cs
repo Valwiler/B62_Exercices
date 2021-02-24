@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 // Audio
 // Truc: utiliser AudioSource.PlayClipAtPoint pour joueur un AudioClip n’importe où.
 //     • Votre jeu doit au lancement du niveau jouer music (10% volume)
@@ -27,23 +26,22 @@ using UnityEngine;
 //     • J’ai utilisé le site https://freemusicarchive.org/ pour trouver la musique sans droits d’auteur (junior85 – Left For Deadish).
 public class Audio : MonoBehaviour
 {
-    private AudioSource source;
     public float volume;
     public AudioClip track;
-    
-    public void play()
-    {
-        source.PlayOneShot(track, volume);
-    }
-    void Start()
+    private AudioSource source;
+
+    private void Start()
     {
         source = new AudioSource();
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+    }
+
+    public void play()
+    {
+        source.PlayOneShot(track, volume);
     }
 }
