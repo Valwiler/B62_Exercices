@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +8,20 @@ public class Mario : MonoBehaviour
     private PlatformController PlatformController;
     public Vector2 RunAnimationSpeed;
     private Animator Animator;
+
+    private Health Health;
     // Start is called before the first frame update
     
     void Start()
     {
         PlatformController = GetComponent<PlatformController>();
         PlatformController.OnJump += OnJump;
-        
         PlatformController.OnMoveStart += OnMoveStart;
         PlatformController.OnMoveStop += OnMoveStop;
         PlatformController.OnLand += OnLand;
+        //Health.OnHit += OnHit;
+        //Health.OnDeath += OnDeath;
+        
        
         Animator = GetComponent<Animator>();
     }
@@ -62,5 +67,23 @@ public class Mario : MonoBehaviour
             Animator.Play("Mario_Idle");
         }
     }
-    
+
+    private void OnHit(Health health)
+    {
+        
+    }
+    private void OnDeath(Health health)
+    {
+        
+    }
+
+    //public void OnTriggerEnter2D(Collider2D other)
+    //{
+    //
+    //
+    //    if (other.gameObject.layer == LayerMask.GetMask("Hitbox"))
+    //    {
+    //        
+    //    }
+    //}
 }

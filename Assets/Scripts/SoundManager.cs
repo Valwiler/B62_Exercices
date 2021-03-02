@@ -6,21 +6,14 @@ public class SoundManager : MonoBehaviour
 {
     public enum Music
     {
-        Music,
+        
 
         Count
     }
 
     public enum Sfx
     {
-        Explosion,
-        Hit,
-        Hurt,
-        Pickup,
-        Pistol,
-        Shotgun,
-        Spawn,
-
+   
         Count
     };
 
@@ -33,10 +26,10 @@ public class SoundManager : MonoBehaviour
     public void Awake()
     {
         // https://docs.unity3d.com/ScriptReference/Resources.html
-        MusicAudioClips = Resources.LoadAll<AudioClip>("shooter/audio/music");
+        MusicAudioClips = Resources.LoadAll<AudioClip>("platformer/audio/music");
         Debug.Assert((int)Music.Count == MusicAudioClips.Length, "SoundManager : Music enum length (" + (int)Music.Count + ") does not match Resources folder (" + MusicAudioClips.Length + ")");
 
-        SfxAudioClips = Resources.LoadAll<AudioClip>("shooter/audio/sfx");
+        SfxAudioClips = Resources.LoadAll<AudioClip>("platformer/audio/sfx");
         Debug.Assert((int)Sfx.Count == SfxAudioClips.Length, "SoundManager : Sfx enum length " + (int)Sfx.Count + ") does not match Resources folder (" + SfxAudioClips.Length + ")");
 
         // https://docs.unity3d.com/ScriptReference/GameObject.AddComponent.html

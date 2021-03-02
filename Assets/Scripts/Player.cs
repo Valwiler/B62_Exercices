@@ -70,23 +70,23 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
            
-            GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation);
-            GameManager.Instance.SoundManager.Play(SoundManager.Sfx.Pistol);
+            //GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation);
+           // GameManager.Instance.SoundManager.Play(SoundManager.Sfx.Pistol);
             
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-            GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 0, 30));
-            GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation);
-            GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation* Quaternion.Euler(0, 0, -30));
-            GameManager.Instance.SoundManager.Play(SoundManager.Sfx.Shotgun);
+            //GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 0, 30));
+            //GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation);
+            //GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bullet, BulletSpawnPoint.position, transform.rotation* Quaternion.Euler(0, 0, -30));
+            //GameManager.Instance.SoundManager.Play(SoundManager.Sfx.Shotgun);
         }
 
         if (Input.GetButtonDown("Fire3") && Bomb) // Add Condition for bomb count
         {
             Bomb.Value -= 1;
-            GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bomb, BulletSpawnPoint.position, transform.rotation);
+            //GameManager.Instance.PrefabManager.Spawn(PrefabManager.Global.Bomb, BulletSpawnPoint.position, transform.rotation);
         }
         
         //if (Health.OnDeath){ Health.OnDeath.Target(this) ;}

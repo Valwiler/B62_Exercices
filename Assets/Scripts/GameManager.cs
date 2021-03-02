@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
             // TODO: use a bootloader instead to create this before level is started since it can be expensive to load all assets
             if (_instance == null)
             {
-                var gameManagerGameObject = Resources.Load<GameObject>("shooter/prefabs/GameManager");
+                var gameManagerGameObject = Resources.Load<GameObject>("platformer/prefabs/GameManager");
                 var managerObject = Instantiate(gameManagerGameObject);
                 _instance = managerObject.GetComponent<GameManager>();
                 _instance.Initialize();

@@ -5,24 +5,18 @@ public class PrefabManager : MonoBehaviour
     //MonsterBlue,
     public enum Global
     {
-        Barrel,
-        Bomb,
-        Bullet,
-        MonsterGreen,
-        MonsterRed,
-        PickupBomb,
-        PickupHealth,
-        Player,
-        Spawner,
+        BulletBill,
+        Cannon,
+        Goomba,
+        Spikes,
+        
 
         Count
     }
 
     public enum Vfx
     {
-        Explosion,
-        ExplosionBig,
-        ExplosionSmall,
+        Smoke,
 
         Count
     }
@@ -32,11 +26,11 @@ public class PrefabManager : MonoBehaviour
 
     private void Awake()
     {
-        GlobalGameObjects = Resources.LoadAll<GameObject>("shooter/prefabs/global");
+        GlobalGameObjects = Resources.LoadAll<GameObject>("platformer/prefab/global");
         Debug.Assert((int)Global.Count == GlobalGameObjects.Length,
             "PrefabManager : Global enum length (" + (int)Global.Count + ") does not match Resources folder (" + GlobalGameObjects.Length + ")");
 
-        VfxGameObjects = Resources.LoadAll<GameObject>("shooter/prefabs/vfx");
+        VfxGameObjects = Resources.LoadAll<GameObject>("platformer/prefab/vfx");
         Debug.Assert((int)Vfx.Count == VfxGameObjects.Length, "PrefabManager : Vfx enum length (" + (int)Vfx.Count + ") does not match Resources folder (" + VfxGameObjects.Length + ")");
     }
 
